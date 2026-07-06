@@ -12,7 +12,13 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  
+  // Timeout para correr a suite completa
+  timeout: 60000,  
+  // Timeout para cada teste, verificações individuais como tobeVisible, toContainText, etc.
+  expect: {
+    timeout: 6000,
+  },
+  // recomendado trabalhar com timeout explícitos dentro da aserssão de teste
   testDir: './playwright/e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -26,11 +32,15 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    /* Base URL to use in actions like `await page.goto('/')`. */
+    baseURL: 'http://localhost:5173',
 
+    // Timeout para cada ação, como click, fill, etc.Quando o valor é 0 erda o limite do timeout geral
+    actionTimeout: 10000,
+    // Timeout para navegação, como goto, reload, waitforurl, etc.Quando o valor é 0 erda o limite do timeout geral
+    navigationTimeout: 10000,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
@@ -72,9 +82,9 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  webServer: {
+    command: 'yarn dev',
+    url: 'http://localhost:5173',
+    reuseExistingServer: !process.env.CI,
+  },
 });
