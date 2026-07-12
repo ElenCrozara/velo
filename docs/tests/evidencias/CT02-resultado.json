@@ -1,0 +1,43 @@
+{
+  "caso": "CT02",
+  "nome": "Navegar para o configurador pelo CTA do Hero",
+  "dataExecucao": "2026-07-10",
+  "fase1_manual": "APROVADO",
+  "fase2_automatizado": "APROVADO",
+  "urlBase": "http://localhost:5173",
+  "localizadoresIdentificados": {
+    "heroCta": "getByRole('link', { name: 'Configure Agora' })",
+    "tituloConfigurador": "getByRole('heading', { name: 'Velô Sprint', level: 1 })",
+    "secaoCor": "getByRole('heading', { name: 'COR', level: 3 })",
+    "secaoRodas": "getByRole('heading', { name: 'RODAS', level: 3 })",
+    "secaoOpcionais": "getByRole('heading', { name: 'OPCIONAIS', level: 3 })",
+    "botaoCheckout": "getByRole('button', { name: 'Monte o Seu' })"
+  },
+  "passos": [
+    {
+      "id": 1,
+      "acao": "Localizar o botão Configure Agora na seção Hero",
+      "resultadoEsperado": "Botão visível com ícone de seta",
+      "resultadoObtido": "Link acessível com role=link, name=Configure Agora, href=/configure, ícone SVG presente",
+      "status": "OK",
+      "evidencia": "CT02-passo1.png"
+    },
+    {
+      "id": 2,
+      "acao": "Clicar no botão Configure Agora",
+      "resultadoEsperado": "Navegação ocorre para /configure",
+      "resultadoObtido": "URL alterada para http://localhost:5173/configure",
+      "status": "OK",
+      "evidencia": "CT02-passo2.png"
+    },
+    {
+      "id": 3,
+      "acao": "Verificar o conteúdo da nova página",
+      "resultadoEsperado": "Título Velô Sprint e painel de configuração exibidos",
+      "resultadoObtido": "h1 Velô Sprint; seções COR, RODAS, OPCIONAIS; botão Monte o Seu; preço R$ 40.000,00",
+      "status": "OK",
+      "evidencia": "CT02-passo3.png"
+    }
+  ],
+  "arquivoAutomatizado": "playwright/e2e/landing.spec.ts"
+}

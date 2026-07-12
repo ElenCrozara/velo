@@ -11,7 +11,16 @@ export type OrderDetails = {
 }
 
 export function createOrderLookupActions(page: Page) {
+
+  const orderInput = page.getByRole('textbox', { name: 'Número do Pedido' })
+  const searchButton = page.getByRole('button', { name: 'Buscar Pedido' })
+
   return {
+
+    elements: {
+      orderInput,
+      searchButton,
+    },
 
     async open() {
       await page.goto('http://localhost:5173/')
@@ -21,8 +30,8 @@ export function createOrderLookupActions(page: Page) {
     },
 
     async searchOrder(numero: string) {
-      await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(numero)
-      await page.getByRole('button', { name: 'Buscar Pedido' }).click()
+      await orderInput.fill(numero)
+      await searchButton.click()
     },
 
     async validateStatusBadge(status: OrderStatus) {
